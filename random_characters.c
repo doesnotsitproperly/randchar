@@ -144,6 +144,8 @@ int main(int argc, char* argv[])
     printf("Generating...\n");
     printf("%s\n", generate());
 
+    getchar();
+
     return EXIT_SUCCESS;
 }
 
