@@ -56,29 +56,54 @@ int main(int argc, char* argv[])
     for (size_t i = 0; i < argc; i++)
     {
         if (next_arg_is_length)
+        {
             length = atoi(argv[i]);
+            next_arg_is_length = false;
+        }
         else if (strcmp(argv[i], "-length") == 0 || strcmp(argv[i], "--length") == 0)
+        {
             next_arg_is_length = true;
+        }
         else if (strcmp(argv[i], "-no-special-characters") == 0 || strcmp(argv[i], "--no-special-characters") == 0)
+        {
             no_special_characters = true;
+        }
         else if (strcmp(argv[i], "-no-exclamation-marks") == 0 || strcmp(argv[i], "--no-exclamation-marks") == 0)
+        {
             no_exclamation_marks = true;
+        }
         else if (strcmp(argv[i], "-no-number-signs") == 0 || strcmp(argv[i], "--no-number-signs") == 0)
+        {
             no_number_signs = true;
+        }
         else if (strcmp(argv[i], "-no-dollar-signs") == 0 || strcmp(argv[i], "--no-dollar-signs") == 0)
+        {
             no_dollar_signs = true;
+        }
         else if (strcmp(argv[i], "-no-percent-signs") == 0 || strcmp(argv[i], "--no-percent-signs") == 0)
+        {
             no_percent_signs = true;
+        }
         else if (strcmp(argv[i], "-no-ampersands") == 0 || strcmp(argv[i], "--no-ampersands") == 0)
+        {
             no_ampersands = true;
+        }
         else if (strcmp(argv[i], "-no-hyphens") == 0 || strcmp(argv[i], "--no-hyphens") == 0)
+        {
             no_hyphens = true;
+        }
         else if (strcmp(argv[i], "-no-periods") == 0 || strcmp(argv[i], "--no-periods") == 0)
+        {
             no_periods = true;
+        }
         else if (strcmp(argv[i], "-no-at-signs") == 0 || strcmp(argv[i], "--no-at-signs") == 0)
+        {
             no_at_signs = true;
+        }
         else if (strcmp(argv[i], "-no-underscores") == 0 || strcmp(argv[i], "--no-underscores") == 0)
+        {
             no_underscores = true;
+        }
     }
 
     if (length == -1)
