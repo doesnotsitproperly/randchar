@@ -84,9 +84,7 @@ int main(int argc, char* argv[])
     }
 
     if (length == -1)
-    {
         length = 15;
-    }
     else if (length < 4)
     {
         printf("Minimum length is 4\n");
@@ -188,9 +186,7 @@ char* generate()
         }
 
         if (has_upper && has_lower && has_digit && (has_special || no_special_characters))
-        {
             return string;
-        }
         else
         {
             printf("Regenerating...\n");
