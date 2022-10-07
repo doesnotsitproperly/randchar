@@ -5,8 +5,6 @@
 #include <string.h>
 #include <time.h>
 
-#define REGULAR_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
 char* generate();
 
 char* chars;
@@ -91,7 +89,7 @@ int main(int argc, char* argv[])
         length = 4;
     }
 
-    int chars_length = strlen(REGULAR_CHARS);
+    int chars_length = 62;
     if (!no_special_characters)
     {
         if (!no_exclamation_marks)
@@ -115,7 +113,7 @@ int main(int argc, char* argv[])
     }
 
     chars = malloc(sizeof(char) * chars_length);
-    strcpy(chars, REGULAR_CHARS);
+    strcpy(chars, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 
     if (!no_special_characters)
     {
@@ -143,8 +141,6 @@ int main(int argc, char* argv[])
 
     printf("Generating...\n");
     printf("%s\n", generate());
-
-    getchar();
 
     return EXIT_SUCCESS;
 }
