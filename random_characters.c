@@ -5,6 +5,7 @@
 #include <string.h>
 #include <time.h>
 
+bool arg_compare(const char* a, const char* b);
 char* generate();
 
 char* chars;
@@ -25,7 +26,7 @@ int main(int argc, char* argv[])
 {
     for (size_t i = 0; i < argc; i++)
     {
-        if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--h") == 0 || strcmp(argv[i], "-help") == 0 || strcmp(argv[i], "--help") == 0)
+        if (arg_compare(argv[i], "h") || arg_compare(argv[i], "help"))
         {
             printf(
                 "Usage: <executable> [options]\n"
@@ -57,27 +58,27 @@ int main(int argc, char* argv[])
             length = atoi(argv[i]);
             next_arg_is_length = false;
         }
-        else if (strcmp(argv[i], "-length") == 0 || strcmp(argv[i], "--length") == 0)
+        else if (arg_compare(argv[i], "length"))
             next_arg_is_length = true;
-        else if (strcmp(argv[i], "-no-special-characters") == 0 || strcmp(argv[i], "--no-special-characters") == 0)
+        else if (arg_compare(argv[i], "no-special-characters"))
             no_special_characters = true;
-        else if (strcmp(argv[i], "-no-exclamation-marks") == 0 || strcmp(argv[i], "--no-exclamation-marks") == 0)
+        else if (arg_compare(argv[i], "no-exclamation-marks"))
             no_exclamation_marks = true;
-        else if (strcmp(argv[i], "-no-number-signs") == 0 || strcmp(argv[i], "--no-number-signs") == 0)
+        else if (arg_compare(argv[i], "no-number-signs"))
             no_number_signs = true;
-        else if (strcmp(argv[i], "-no-dollar-signs") == 0 || strcmp(argv[i], "--no-dollar-signs") == 0)
+        else if (arg_compare(argv[i], "no-dollar-signs"))
             no_dollar_signs = true;
-        else if (strcmp(argv[i], "-no-percent-signs") == 0 || strcmp(argv[i], "--no-percent-signs") == 0)
+        else if (arg_compare(argv[i], "no-percent-signs"))
             no_percent_signs = true;
-        else if (strcmp(argv[i], "-no-ampersands") == 0 || strcmp(argv[i], "--no-ampersands") == 0)
+        else if (arg_compare(argv[i], "no-ampersands"))
             no_ampersands = true;
-        else if (strcmp(argv[i], "-no-hyphens") == 0 || strcmp(argv[i], "--no-hyphens") == 0)
+        else if (arg_compare(argv[i], "no-hyphens"))
             no_hyphens = true;
-        else if (strcmp(argv[i], "-no-periods") == 0 || strcmp(argv[i], "--no-periods") == 0)
+        else if (arg_compare(argv[i], "no-periods"))
             no_periods = true;
-        else if (strcmp(argv[i], "-no-at-signs") == 0 || strcmp(argv[i], "--no-at-signs") == 0)
+        else if (arg_compare(argv[i], "no-at-signs"))
             no_at_signs = true;
-        else if (strcmp(argv[i], "-no-underscores") == 0 || strcmp(argv[i], "--no-underscores") == 0)
+        else if (arg_compare(argv[i], "no-underscores"))
             no_underscores = true;
     }
 
@@ -191,4 +192,21 @@ char* generate()
             free(string);
         }
     }
+}
+
+bool arg_compare(const char* a, const char* b)
+{
+    char* arg = (char*) malloc(sizeof(char) * (strlen(b) + 1));
+    strcpy(arg, "-");
+    strcat(arg, b);
+    if (strcmp(a, arg) == 0)
+        return true;
+
+    arg = (char*) realloc(arg, strlen(arg) + 1);
+    strcpy(arg, "--");
+    strcat(arg, b);
+    if (strcmp(a, arg) == 0)
+        return true;
+
+    return false;
 }
