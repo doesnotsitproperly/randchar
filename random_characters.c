@@ -200,13 +200,20 @@ bool arg_compare(const char* a, const char* b)
     strcpy(arg, "-");
     strcat(arg, b);
     if (strcmp(a, arg) == 0)
+    {
+        free(arg);
         return true;
+    }
 
-    arg = (char*) realloc(arg, strlen(arg) + 1);
+    arg = (char*) realloc(arg, strlen(b) + 2);
     strcpy(arg, "--");
     strcat(arg, b);
     if (strcmp(a, arg) == 0)
+    {
+        free(arg);
         return true;
+    }
 
+    free(arg);
     return false;
 }
