@@ -1,4 +1,4 @@
-# Random Characters
+# RandChar
 
 Generate random characters
 
