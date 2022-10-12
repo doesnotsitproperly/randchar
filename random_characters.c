@@ -205,7 +205,7 @@ bool arg_compare(const char* a, const char* b)
         return true;
     }
 
-    arg = (char*) realloc(arg, strlen(b) + 2);
+    arg = (char*) realloc(arg, sizeof(char) * (strlen(b) + 2));
     strcpy(arg, "--");
     strcat(arg, b);
     if (strcmp(a, arg) == 0)
