@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
                 "   no-underscores         _\n"
                 "Note: All options must be preceded by - or --\n"
             );
-            exit(EXIT_SUCCESS);
+            return EXIT_SUCCESS;
         }
     }
 
@@ -182,6 +182,9 @@ char* generate()
                 else
                     has_special = true;
             }
+
+            if (has_upper && has_lower && has_digit && (has_special || no_special_characters))
+                return string; 
         }
 
         if (has_upper && has_lower && has_digit && (has_special || no_special_characters))
