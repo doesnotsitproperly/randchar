@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
         length = 4;
     }
 
-    int chars_length = 62;
+    int chars_length = 63;
     if (!no_special_characters)
     {
         if (!no_exclamation_marks)
