@@ -187,13 +187,8 @@ char* generate()
                 return string; 
         }
 
-        if (has_upper && has_lower && has_digit && (has_special || no_special_characters))
-            return string;
-        else
-        {
-            printf("Regenerating...\n");
-            free(string);
-        }
+        free(string);
+        printf("Regenerating...\n");
     }
 }
 
