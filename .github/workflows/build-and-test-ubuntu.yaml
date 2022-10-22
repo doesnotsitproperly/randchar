@@ -1,0 +1,15 @@
+name: Build and Test (Ubuntu)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: gcc randchar.c -o randchar
+      - run: ./randchar
+      - run: ./randchar -length 100
+      - run: ./randchar -no-special-characters
+      - run: ./randchar -no-special-characters -length 100
