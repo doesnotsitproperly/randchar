@@ -6,7 +6,7 @@
 #include <time.h>
 
 bool arg_compare(const char* a, const char* b);
-char* generate();
+char* generate(void);
 
 char* chars;
 
@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-char* generate()
+char* generate(void)
 {
     int counter = 0;
     while (true)
