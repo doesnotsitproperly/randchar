@@ -1,8 +1,5 @@
 # RandChar
 
-You can run using `lua run.lua -cc <compiler>` or `lua run.lua --cc <compiler>`  
-The `cc` argument is only necessary if your compiler command isn't `gcc`
-
 [Please read the license before using](LICENSE)
 
 ```
