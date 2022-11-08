@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
         printf("Minimum length is 4\n");
         length = 4;
     }
+    length++;
 
     int chars_length = 63;
     if (!no_special_characters)
@@ -194,7 +195,7 @@ char* generate(void)
 
 bool arg_compare(const char* a, const char* b)
 {
-    char* arg = (char*) malloc(sizeof(char) * (strlen(b) + 1));
+    char* arg = (char*) malloc(sizeof(char) * (strlen(b) + 2));
     strcpy(arg, "-");
     strcat(arg, b);
     if (strcmp(a, arg) == 0)
@@ -203,7 +204,7 @@ bool arg_compare(const char* a, const char* b)
         return true;
     }
 
-    arg = (char*) realloc(arg, sizeof(char) * (strlen(b) + 2));
+    arg = (char*) realloc(arg, sizeof(char) * (strlen(b) + 3));
     strcpy(arg, "--");
     strcat(arg, b);
     if (strcmp(a, arg) == 0)
