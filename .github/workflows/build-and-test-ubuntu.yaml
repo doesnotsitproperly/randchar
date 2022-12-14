@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: gcc randchar.c -o randchar
+      - run: gcc main.c -O2 -Wall -o randchar
       - run: ./randchar
       - run: ./randchar -length 100
       - run: ./randchar -no-special-characters

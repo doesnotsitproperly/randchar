@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - run: gcc randchar.c -o randchar
+      - run: gcc main.c -O2 -Wall -o randchar.exe
       - run: .\randchar.exe
       - run: .\randchar.exe -length 100
       - run: .\randchar.exe -no-special-characters
