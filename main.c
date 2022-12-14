@@ -6,11 +6,9 @@
 #include <time.h>
 
 bool arg_compare(const char* a, const char* b);
-char* generate(void);
+char* generate(const char* chars);
 
-char* chars;
-
-int length = -1;
+size_t* length = NULL;
 bool no_special_characters = false;
 bool no_exclamation_marks = false;
 bool no_number_signs = false;
@@ -24,7 +22,7 @@ bool no_underscores = false;
 
 int main(int argc, char* argv[])
 {
-    for (size_t i = 0; i < argc; i++)
+    for (int i = 0; i < argc; i++)
     {
         if (arg_compare(argv[i], "h") || arg_compare(argv[i], "help"))
         {
@@ -51,11 +49,12 @@ int main(int argc, char* argv[])
     }
 
     bool next_arg_is_length = false;
-    for (size_t i = 0; i < argc; i++)
+    for (int i = 0; i < argc; i++)
     {
         if (next_arg_is_length)
         {
-            length = atoi(argv[i]);
+            length = (size_t*) malloc(sizeof(size_t));
+            *length = atoll(argv[i]);
             next_arg_is_length = false;
         }
         else if (arg_compare(argv[i], "length"))
@@ -82,39 +81,19 @@ int main(int argc, char* argv[])
             no_underscores = true;
     }
 
-    if (length == -1)
-        length = 15;
-    else if (length < 4)
+    if (!length)
+    {
+        length = (size_t*) malloc(sizeof(size_t));
+        *length = 15;
+    }
+    else if (*length < 4)
     {
         printf("Minimum length is 4\n");
-        length = 4;
+        *length = 4;
     }
-    length++;
+    *length += 1; // Add space for null terminator
 
-    int chars_length = 63;
-    if (!no_special_characters)
-    {
-        if (!no_exclamation_marks)
-            chars_length++;
-        if (!no_number_signs)
-            chars_length++;
-        if (!no_dollar_signs)
-            chars_length++;
-        if (!no_percent_signs)
-            chars_length++;
-        if (!no_ampersands)
-            chars_length++;
-        if (!no_hyphens)
-            chars_length++;
-        if (!no_periods)
-            chars_length++;
-        if (!no_at_signs)
-            chars_length++;
-        if (!no_underscores)
-            chars_length++;
-    }
-
-    chars = malloc(sizeof(char) * chars_length);
+    char* chars = malloc(sizeof(char) * 72);
     strcpy(chars, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 
     if (!no_special_characters)
@@ -142,43 +121,39 @@ int main(int argc, char* argv[])
     srand(time(NULL));
 
     printf("Generating...\n");
-    printf("%s\n", generate());
+    char* generated_chars = generate(chars);
+    printf("%s\n", generated_chars);
+
+    free(length);
+    free(generated_chars);
 
     return EXIT_SUCCESS;
 }
 
-char* generate(void)
+char* generate(const char* chars)
 {
-    int counter = 0;
-    while (true)
+    for (int i = 0; i < 1000; i++)
     {
-        counter++;
-        if (counter > 1000)
-        {
-            printf("Reached maximum number of generations\n");
-            exit(EXIT_SUCCESS);
-        }
-
-        char* string = (char*) calloc(length, sizeof(char));
-        for (int i = 0; i < length; i++)
+        char* string = (char*) calloc(*length, sizeof(char));
+        for (int i = 0; i < *length; i++)
             string[i] = chars[rand() % strlen(chars)];
 
         bool has_upper = false;
         bool has_lower = false;
         bool has_digit = false;
         bool has_special = false;
-        for (int i = 0; i < length; i++)
+        for (size_t j = 0; j < *length; j++)
         {
-            if (isalpha(string[i]))
+            if (isalpha(string[j]))
             {
-                if (isupper(string[i]))
+                if (isupper(string[j]))
                     has_upper = true;
                 else
                     has_lower = true;
             }
             else
             {
-                if (isdigit(string[i]))
+                if (isdigit(string[j]))
                     has_digit = true;
                 else
                     has_special = true;
@@ -191,6 +166,9 @@ char* generate(void)
         free(string);
         printf("Regenerating...\n");
     }
+
+    printf("Reached maximum number of generations\n");
+    exit(EXIT_SUCCESS);
 }
 
 bool arg_compare(const char* a, const char* b)
