@@ -1,11 +1,16 @@
-default:
-	$(CC) main.c -O2 -Wall -o randchar
+CC := gcc
+CFLAGS := -Wall -O2
 
-windows:
-	$(CC) main.c -O2 -Wall -o randchar.exe
+default:
+ifeq ($(OS), Windows_NT)
+	$(CC) main.c $(CFLAGS) -o randchar.exe
+else
+	$(CC) main.c $(CFLAGS) -o randchar
+endif
 
 run: default
-	./randchar
-
-run-windows: windows
+ifeq ($(OS), Windows_NT)
 	.\randchar.exe
+else
+	./randchar
+endif
